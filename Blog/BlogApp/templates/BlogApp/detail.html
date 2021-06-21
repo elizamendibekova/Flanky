@@ -1,0 +1,46 @@
+{% extends "BlogApp/base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<div class="shadow p-3 rounded">
+    <h1 class="display-4 px-3 shadow p-3 bg-white rounded">{{ post.title }}</h1>
+    <div class="card mb-3 shadow p-3 bg-white rounded">
+        <div class="card-body">
+            <p class="post__text">{{ post.body }}</p>
+            <div>Пост выложил: <strong>{{ post.user }}</strong></strong></div>
+            <div>Дата пуликации: <strong>{{ post.pub_date }}</strong></div>
+            <a href="{% url 'BlogApp:post_update' post.id %}">Редактировать</a>
+            <a href="{% url 'BlogApp:post_delete' post.id %}">Удалить</a>
+        </div>
+    </div>
+    <div>
+        <h2 class="display-4 px-3 shadow p-3 bg-white rounded"><em>Коментарии</em></h2>
+        <div class="input-group mb-3 shadow p-3 bg-white rounded">
+            <input type="file" class="form-control" id="inputGroupFile02">
+            <label class="input-group-text" for="inputGroupFile02">Upload</label>
+        </div>
+        <div class="form-floating shadow p-3 bg-white rounded">
+            <div class="input-group mb-3">
+                <textarea class="form-control" placeholder="Напишите коментарии" id="floatingTextarea"></textarea>
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+            </div>
+        </div>
+        {% if post.comment_set.all %}
+        {% for comment in post.comment_set.all %}
+            <div class="card my-2 shadow p-3 bg-white rounded">
+                <div class="card-header"><h3>{{ comment.user }}</h3></div>
+                <div class="card-body">
+                    <p class="py-0 my-0">{{ comment.body }}</p>
+                    <p class="text-muted py-0 my-0"><em>{{ comment.comment_date }}</em></p>
+                </div>
+            </div>
+        {% endfor %}
+        {% else %}
+            <div class="card my-2 shadow p-3 bg-white rounded">
+                <div class="card-body">
+                    <p class="py-0 my-0">Комментариев пока ещё нет :(</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

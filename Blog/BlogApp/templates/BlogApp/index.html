@@ -1,0 +1,57 @@
+{% extends "BlogApp/base.html" %}
+
+{% block content %}
+{% if latest_post_list %}
+<div class="shadow p-3 rounded">
+    <h1 class="display-4 mb-3">Наши посты!</h1>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                aria-selected="true">Главная</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                aria-selected="false">Профиль</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+                {% for post in latest_post_list %}
+                <div class="col">
+                    <div class="card my-2 shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                        <div class="card-body">
+                            <h3 class="display-4" style="font-size: 32px">{{ post.user }}</h3>
+                            <h3 class="card-text mt-3 display-4" style="color: #333; font-size: 16px;">{{ post.pub_date }}</h3>
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.body }}</p>
+                            <a href="{% url 'BlogApp:detail' post.id %}" class="btn btn-primary">Читать далее</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="row">
+                {% for post in post_list %}
+                <div class="col">
+                    <div class="card my-2 shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                        <div class="card-body">
+                            <h3 class="display-4" style="font-size: 32px">{{ post.user }}</h3>
+                            <h3 class="card-text mt-3 display-4" style="color: #333; font-size: 16px;">{{ post.pub_date }}</h3>
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.body }}</p>
+                            <a href="{% url 'BlogApp:detail' post.id %}" class="btn btn-primary">Читать далее</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<p>No polls are avialable</p>
+{% endif %}
+{% endblock %}
