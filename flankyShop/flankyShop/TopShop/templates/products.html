@@ -1,0 +1,22 @@
+{% extends "TopShop/base.html" %}
+{% load static %}
+{% block page_header %}
+  <h1><a href="/categories/">Categories</a> | <a href="/categories/{{ category.name }}">{{ category }}</a> | <a href="/categories/{{ category.name }}/{{ subcategory.id }}">{{ subcategory }}</a> | <b>{{ product }}</b></h1>
+  {% if profile.phonenumber %}
+    <p>Seller[{{ product.user }}]: +996-{{ profile.phonenumber }}</a></p>
+  {% else %}
+    <p>The seller did not leave phone number in his profile. Look for him in "Letters"</p>
+  {% endif %}
+  {% if product.user == user %}
+    <a href="/categories/{{ category.name }}/{{ subcategory.id }}/{{ product.id }}/update">Update product</a> | <a href="/categories/{{ category.name }}/{{ subcategory.id }}/{{ product.id }}/delete">Delete product</a>
+  {% endif %}
+{% endblock page_header %}
+
+{% block content %}
+  <div class="card mb-3">
+      <div class="card-body">
+        {{ product.description|linebreaks }}
+      </div>
+      <div class="card-body">Price: {{ product.price }}</div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% load bootstrap4 %}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FlankyShop</title>
+
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
+
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+
+    <a class="navbar-brand" href="{% url 'Topshop:index'%}">FlankyShop</a>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'Topshop:categories'%}">Topshop</a></li>
+          <li class="nav-item">
+          <a class="nav-link" href="{% url 'Letters:index'%}">Letters</a></li>
+      </ul>
+        <ul class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <span class="navbar-text">Hello, <a href="{% url 'Topshop:update_profile' user.id %}">{{ user.username }}</a>.</span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:login' %}">Log in</a></li>
+          {% endif %}
+        </ul>
+      </ul>
+    </div>
+
+  </nav>
+
+  <main role="main" class="container">
+    <div class="pb-2 mb-2 border-bottom">
+      {% block page_header %}{% endblock page_header %}
+    </div>
+    <div>
+      {% block content %}{% endblock content %}
+    </div>
+  </main>
+
+</body>
+
+</html>

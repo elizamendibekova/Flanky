@@ -1,0 +1,14 @@
+{% extends 'Topshop/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Update profile{% endblock %}
+
+{% block content %}
+
+<form method="post">
+	{% csrf_token %}
+	+996<input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" required>
+    <small>Format: xxx-xxx-xxx, where x∈[0, 9]</small>
+    <div><input type="submit" value="Submit"></div>
+</form>
+
+{% endblock content %}
